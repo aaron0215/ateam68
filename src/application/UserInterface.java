@@ -2,6 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -21,10 +22,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import java.awt.TextField;
 import java.util.*;
 
 public class UserInterface extends Application {
@@ -91,6 +93,39 @@ public class UserInterface extends Application {
     
     return hbox;
   }
+  
+  public void initializeScreens() {
+    String[] screenNames = {"add", "load1", "load2", "next", "save"};
+    for (String name: screenNames) {
+      this.addScreen(name);
+      setupScreens(name);
+    }
+  }
+  
+  public void setupScreens(String name) {
+    switch(name) {
+      case "add":
+        break;
+      case "load1":
+        break;
+      case "load2":
+        break;
+      case "next":
+        break;
+      case "save":
+        VBox vbox = new VBox();
+        Insets insets = new Insets(10);
+        vbox.getChildren().addAll(new Text("Filename:"), new TextField());
+        screenMap.get(name).setTop(new Text("Text"));
+        screenMap.get(name).setCenter(vbox);
+        screenMap.get(name).setAlignment(vbox, Pos.CENTER);
+        screenMap.get(name).setMargin(screenMap.get(name).getTop(), insets);
+        screenMap.get(name).setMargin(vbox, insets);
+        screenMap.get(name).setBottom(this.addButtonForSaveScreen());
+        screenMap.get(name).setMargin(screenMap.get(name).getBottom(), insets);
+        break;
+    }
+  }
 
   public TextField addQuestion() {
     return null;
@@ -129,9 +164,7 @@ public class UserInterface extends Application {
       root.setAlignment(title, Pos.CENTER);
       root.setCenter(this.addButtonForRootScreen());
       
-      this.addScreen("save");
-      screenMap.get("save").setTop(new Text("Text"));
-      screenMap.get("save").setBottom(this.addButtonForSaveScreen());
+      initializeScreens();
       
       main.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       primaryStage.setScene(main);
