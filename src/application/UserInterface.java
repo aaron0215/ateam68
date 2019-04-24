@@ -67,7 +67,12 @@ public class UserInterface extends Application {
     addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
+<<<<<<< HEAD
         activate("add");  // call activate method to set scene
+=======
+        activate("add");
+        setupScreens("add");
+>>>>>>> branch 'master' of https://github.com/aaron0215/ateam68.git
         System.out.println("add new question");
       }
     });
@@ -112,7 +117,6 @@ public class UserInterface extends Application {
     String[] screenNames = {"add", "load1", "load2", "next", "save"};
     for (String name: screenNames) {
       this.addScreen(name);
-      setupScreens(name);
     }
   }
   
