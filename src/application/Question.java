@@ -5,40 +5,37 @@ public class Question {
   public String imageFile;
   public String[] choiceArray;
   public String topic;
-  public boolean status;
   
   // Constructor without image input
-  public Question (String questionText, String[] choiceArray, String topic, boolean status) {
-    
+  public Question (String questionText, String[] choiceArray, String topic) {
+    this.questionText = questionText;
+    this.choiceArray = choiceArray;
+    this.topic = topic;
   }
   
   // Constructor with image input
-  public Question (String questionText, String[] choiceArray, String imagePath, String topic, boolean status ) {
-    
-  }
-  
-  public void setStatus (boolean status) {
-    
+  public Question (String questionText, String[] choiceArray, String imagePath, String topic) {
+    this.questionText = questionText;
+    this.choiceArray = choiceArray;
+    this.topic = topic;
+    this.imageFile = imagePath;
   }
   
   public String getQuestion() {
-    return null;
+    return questionText;
   }
   
   // Return image path
   public String getImage() {
-    return null;
+    return imageFile;
   }
   
   public String getTopic() {
-    return null;
+    return topic;
   }
   
   public String[] getChoices() {
-    return null;
+    return choiceArray;
   }
   
-  public boolean getStatus() {
-    return false;
-  }
 }
