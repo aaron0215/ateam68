@@ -258,26 +258,4 @@ public class UserInterface extends Application {
     launch(args);
   }
 
-  // private class SceneNode{
-  // private String name;
-  // private BorderPane pane;
-  //
-  // SceneNode(String name) {
-  // this.name = name;
-  // pane = new BorderPane();
-  // }
-  //
-  // private String getName() {
-  // return name;
-  // }
-  //
-  // private BorderPane getBorderPane() {
-  // return pane;
-  // }
-  //
-  // private void updatePane(BorderPane pane) {
-  // this.pane = pane;
-  // }
-  // }
-
 }
