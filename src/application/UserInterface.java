@@ -33,10 +33,10 @@ import java.util.*;
 
 public class UserInterface extends Application {
   private HashMap<String, BorderPane> screenMap = new HashMap<>();
-  private Scene main;  // Scene to display different panes
-  BorderPane root;  // the main menu
-  private int loadNum = 0;  // 
-  
+  private Scene main; // Scene to display different panes
+  BorderPane root; // the main menu
+  private int loadNum = 0; //
+
   /**
    * 
    * @return
@@ -46,14 +46,15 @@ public class UserInterface extends Application {
   }
 
   /**
-   * This method 
+   * This method
+   * 
    * @return
    */
   public HBox addButtonForRootScreen() {
     HBox hbox = new HBox();
-    Button addButton = new Button("Add Question");  // add button for "add question" screen
-    Button loadButton = new Button("Load Question");  // button for "load question" screen
-    Button saveButton = new Button("Save");  // button for "save" screen
+    Button addButton = new Button("Add Question"); // add button for "add question" screen
+    Button loadButton = new Button("Load Question"); // button for "load question" screen
+    Button saveButton = new Button("Save"); // button for "save" screen
     // set preferred size
     addButton.setPrefSize(100, 60);
     loadButton.setPrefSize(100, 60);
@@ -67,7 +68,7 @@ public class UserInterface extends Application {
     addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        activate("add");  // call activate method to set scene
+        activate("add"); // call activate method to set scene
         setupScreens("add");
         System.out.println("add new question");
       }
@@ -76,6 +77,8 @@ public class UserInterface extends Application {
     loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
+        activate("load1");
+        setupScreens("load1");
         System.out.println("load questions");
       }
     });
@@ -83,14 +86,15 @@ public class UserInterface extends Application {
     saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        activate("save");  // call activate method to set scene
+        activate("save"); // call activate method to set scene
+        setupScreens("save");
         System.out.println("save questions");
       }
     });
 
     return hbox;
   }
-  
+
   /**
    * 
    * @return
@@ -101,7 +105,7 @@ public class UserInterface extends Application {
     save.setPrefSize(100, 60);
     hbox.getChildren().addAll(save);
     hbox.setAlignment(Pos.CENTER_RIGHT);
-    
+
     save.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
@@ -109,24 +113,24 @@ public class UserInterface extends Application {
         System.out.println("Go back to root");
       }
     });
-    
+
     return hbox;
   }
-  
+
   /**
    * This method initializes all screens that we need
    */
   public void initializeScreens() {
     String[] screenNames = {"add", "load1", "load2", "next", "save"};
-    for (String name: screenNames) {
+    for (String name : screenNames) {
       this.addScreen(name);
     }
   }
-  
+
   public void setupScreens(String name) {
     VBox vbox;
     Insets insets = new Insets(10);
-    switch(name) {
+    switch (name) {
       case "add":
         vbox = new VBox();
         // Set the text at the top
@@ -136,7 +140,7 @@ public class UserInterface extends Application {
         HBox hbox = new HBox();
         hbox.getChildren().addAll(new Text("Text: "), new TextField());
         vbox.getChildren().add(hbox);
-        hbox.setAlignment(Pos.CENTER);  // align to the center
+        hbox.setAlignment(Pos.CENTER); // align to the center
         // initialize a new HBox for topic of the question
         hbox = new HBox();
         hbox.getChildren().addAll(new Text("Topic: "), new TextField());
@@ -152,7 +156,7 @@ public class UserInterface extends Application {
         hbox.getChildren().add(new Text("Choices: "));
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER);
-        
+
         // toggle group of radio buttons so that only one selection can be chosen
         ToggleGroup group = new ToggleGroup();
         RadioButton button = new RadioButton();
@@ -170,7 +174,7 @@ public class UserInterface extends Application {
           vbox.getChildren().add(hbox);
           hbox.setAlignment(Pos.CENTER);
         }
-        
+
         Button saveButton = new Button("Save");
         screenMap.get(name).setBottom(saveButton);
         screenMap.get(name).setAlignment(saveButton, Pos.CENTER_RIGHT);
@@ -181,12 +185,12 @@ public class UserInterface extends Application {
             System.out.println("Go back to root");
           }
         });
-        
+
         screenMap.get(name).setCenter(vbox);
         screenMap.get(name).setAlignment(vbox, Pos.CENTER);
         screenMap.get(name).setMargin(screenMap.get(name).getCenter(), insets);
         screenMap.get(name).setMargin(screenMap.get(name).getBottom(), insets);
-        
+
         break;
       case "load1":
         break;
@@ -231,6 +235,7 @@ public class UserInterface extends Application {
 
   /**
    * This method changes scene to desired pane
+   * 
    * @param name
    */
   protected void activate(String name) {
@@ -248,9 +253,9 @@ public class UserInterface extends Application {
       root.setTop(title);
       root.setAlignment(title, Pos.CENTER);
       root.setCenter(this.addButtonForRootScreen());
-      
+
       initializeScreens();
-      
+
       main.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       primaryStage.setScene(main);
       primaryStage.show();
@@ -263,27 +268,5 @@ public class UserInterface extends Application {
   public static void main(String[] args) {
     launch(args);
   }
-
-  // private class SceneNode{
-  // private String name;
-  // private BorderPane pane;
-  //
-  // SceneNode(String name) {
-  // this.name = name;
-  // pane = new BorderPane();
-  // }
-  //
-  // private String getName() {
-  // return name;
-  // }
-  //
-  // private BorderPane getBorderPane() {
-  // return pane;
-  // }
-  //
-  // private void updatePane(BorderPane pane) {
-  // this.pane = pane;
-  // }
-  // }
 
 }
