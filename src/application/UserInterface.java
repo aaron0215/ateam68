@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -33,6 +34,7 @@ public class UserInterface extends Application {
   private HashMap<String, BorderPane> screenMap = new HashMap<>();
   private Scene main;
   BorderPane root;
+  private int loadNum = 0;
 
   public BorderPane addPane() {
     return null;
@@ -54,6 +56,7 @@ public class UserInterface extends Application {
     add.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
+        activate("add");
         System.out.println("add new question");
       }
     });
@@ -103,8 +106,51 @@ public class UserInterface extends Application {
   }
   
   public void setupScreens(String name) {
+    VBox vbox;
+    Insets insets = new Insets(10);
     switch(name) {
       case "add":
+        vbox = new VBox();
+        screenMap.get(name).setTop(new Text("Add new question"));
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(new Text("Text: "), new TextField());
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        hbox = new HBox();
+        hbox.getChildren().addAll(new Text("Topic: "), new TextField());
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        hbox = new HBox();
+        hbox.getChildren().addAll(new Text("Image: "), new TextField());
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        hbox = new HBox();
+        hbox.getChildren().add(new Text("Choices: "));
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        for (int i = 0; i < 5; i++) {
+          hbox = new HBox();
+          hbox.getChildren().addAll(new RadioButton(), new TextField());
+          vbox.getChildren().add(hbox);
+          hbox.setAlignment(Pos.CENTER);
+        }
+        
+        Button saveButton = new Button("Save");
+        screenMap.get(name).setBottom(saveButton);
+        screenMap.get(name).setAlignment(saveButton, Pos.CENTER_RIGHT);
+        saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            main.setRoot(root);
+            System.out.println("Go back to root");
+          }
+        });
+        
+        screenMap.get(name).setCenter(vbox);
+        screenMap.get(name).setAlignment(vbox, Pos.CENTER);
+        screenMap.get(name).setMargin(screenMap.get(name).getCenter(), insets);
+        screenMap.get(name).setMargin(screenMap.get(name).getBottom(), insets);
+        
         break;
       case "load1":
         break;
@@ -113,8 +159,7 @@ public class UserInterface extends Application {
       case "next":
         break;
       case "save":
-        VBox vbox = new VBox();
-        Insets insets = new Insets(10);
+        vbox = new VBox();
         vbox.getChildren().addAll(new Text("Filename:"), new TextField());
         screenMap.get(name).setTop(new Text("Text"));
         screenMap.get(name).setCenter(vbox);
