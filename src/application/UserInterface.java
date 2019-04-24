@@ -58,6 +58,7 @@ public class UserInterface extends Application {
       @Override
       public void handle(MouseEvent me) {
         activate("add");
+        setupScreens("add");
         System.out.println("add new question");
       }
     });
@@ -102,7 +103,6 @@ public class UserInterface extends Application {
     String[] screenNames = {"add", "load1", "load2", "next", "save"};
     for (String name: screenNames) {
       this.addScreen(name);
-      setupScreens(name);
     }
   }
   
