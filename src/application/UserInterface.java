@@ -66,6 +66,7 @@ public class UserInterface extends Application {
     load.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
+        activate("load1");
         System.out.println("load questions");
       }
     });
