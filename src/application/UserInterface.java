@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -128,9 +129,19 @@ public class UserInterface extends Application {
         hbox.getChildren().add(new Text("Choices: "));
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER);
-        for (int i = 0; i < 5; i++) {
+        ToggleGroup group = new ToggleGroup();
+        RadioButton button = new RadioButton();
+        button.setToggleGroup(group);
+        button.setSelected(true);
+        hbox = new HBox();
+        hbox.getChildren().addAll(button, new TextField());
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        for (int i = 0; i < 4; i++) {
           hbox = new HBox();
-          hbox.getChildren().addAll(new RadioButton(), new TextField());
+          button = new RadioButton();
+          button.setToggleGroup(group);
+          hbox.getChildren().addAll(button, new TextField());
           vbox.getChildren().add(hbox);
           hbox.setAlignment(Pos.CENTER);
         }
