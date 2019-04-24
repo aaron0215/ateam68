@@ -77,6 +77,7 @@ public class UserInterface extends Application {
       @Override
       public void handle(MouseEvent me) {
         activate("load");
+        setupScreens("load1");
         System.out.println("load questions");
       }
     });
@@ -85,6 +86,7 @@ public class UserInterface extends Application {
       @Override
       public void handle(MouseEvent me) {
         activate("save");  // call activate method to set scene
+        setupScreens("save");
         System.out.println("save questions");
       }
     });
