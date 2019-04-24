@@ -33,48 +33,58 @@ import java.util.*;
 
 public class UserInterface extends Application {
   private HashMap<String, BorderPane> screenMap = new HashMap<>();
-  private Scene main;
-  BorderPane root;
-  private int loadNum = 0;
-
+  private Scene main;  // Scene to display different panes
+  BorderPane root;  // the main menu
+  private int loadNum = 0;  // 
+  
+  /**
+   * 
+   * @return
+   */
   public BorderPane addPane() {
     return null;
   }
 
+  /**
+   * This method 
+   * @return
+   */
   public HBox addButtonForRootScreen() {
     HBox hbox = new HBox();
-    Button add = new Button("Add Question");
-    Button load = new Button("Load Question");
-    Button save = new Button("Save");
-    add.setPrefSize(100, 60);
-    load.setPrefSize(100, 60);
-    save.setPrefSize(100, 60);
-    hbox.getChildren().addAll(add, load, save);
+    Button addButton = new Button("Add Question");  // add button for "add question" screen
+    Button loadButton = new Button("Load Question");  // button for "load question" screen
+    Button saveButton = new Button("Save");  // button for "save" screen
+    // set preferred size
+    addButton.setPrefSize(100, 60);
+    loadButton.setPrefSize(100, 60);
+    saveButton.setPrefSize(100, 60);
+    // add buttons to hbox
+    hbox.getChildren().addAll(addButton, loadButton, saveButton);
     hbox.setAlignment(Pos.CENTER);
     hbox.setSpacing(10);
 
     // EventHandler goes here
-    add.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        activate("add");
+        activate("add");  // call activate method to set scene
         setupScreens("add");
         System.out.println("add new question");
       }
     });
 
-    load.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        activate("load1");
+        activate("load");
         System.out.println("load questions");
       }
     });
 
-    save.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent me) {
-        activate("save");
+        activate("save");  // call activate method to set scene
         System.out.println("save questions");
       }
     });
@@ -113,23 +123,31 @@ public class UserInterface extends Application {
     switch(name) {
       case "add":
         vbox = new VBox();
+        // Set the text at the top
         screenMap.get(name).setTop(new Text("Add new question"));
+        // initialize a HBox for text of the question
+        // and add to the vbox
         HBox hbox = new HBox();
         hbox.getChildren().addAll(new Text("Text: "), new TextField());
         vbox.getChildren().add(hbox);
-        hbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);  // align to the center
+        // initialize a new HBox for topic of the question
         hbox = new HBox();
         hbox.getChildren().addAll(new Text("Topic: "), new TextField());
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER);
+        // initialize a new HBox for Image file name of the question
         hbox = new HBox();
         hbox.getChildren().addAll(new Text("Image: "), new TextField());
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER);
+        // initialize a new HBox for texts
         hbox = new HBox();
         hbox.getChildren().add(new Text("Choices: "));
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER);
+        
+        // toggle group of radio buttons so that only one selection can be chosen
         ToggleGroup group = new ToggleGroup();
         RadioButton button = new RadioButton();
         button.setToggleGroup(group);
@@ -205,6 +223,10 @@ public class UserInterface extends Application {
     screenMap.remove(name);
   }
 
+  /**
+   * This method changes scene to desired pane
+   * @param name
+   */
   protected void activate(String name) {
     main.setRoot(screenMap.get(name));
   }
