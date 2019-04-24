@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -129,6 +131,7 @@ public class UserInterface extends Application {
 
   public void setupScreens(String name) {
     VBox vbox;
+    HBox hbox;
     Insets insets = new Insets(10);
     switch (name) {
       case "add":
@@ -137,7 +140,7 @@ public class UserInterface extends Application {
         screenMap.get(name).setTop(new Text("Add new question"));
         // initialize a HBox for text of the question
         // and add to the vbox
-        HBox hbox = new HBox();
+        hbox = new HBox();
         hbox.getChildren().addAll(new Text("Text: "), new TextField());
         vbox.getChildren().add(hbox);
         hbox.setAlignment(Pos.CENTER); // align to the center
@@ -193,6 +196,26 @@ public class UserInterface extends Application {
 
         break;
       case "load1":
+        vbox = new VBox();
+        BorderPane currScreen = screenMap.get(name);
+        currScreen.setTop(new Text("Load Question"));
+        
+        ObservableList<String> topics = 
+            FXCollections.observableArrayList(
+                "Topic 1",
+                "Topic 2",
+                "Topic 3"
+            );
+        final ComboBox topicComboBox = new ComboBox(topics);
+        hbox = new HBox();  // hbox for topic prompt
+        hbox.getChildren().addAll(new Text("Topic: "), topicComboBox);
+        HBox numberQuestionHBox = new HBox();  //hbox for number of question prompt
+        hbox.getChildren().addAll(new Text("# of Questions: "), new TextField());
+        
+        
+        vbox.getChildren().add(hbox);
+        vbox.getChildren().add(numberQuestionHBox);
+        currScreen.setCenter(vbox);
         break;
       case "load2":
         break;
