@@ -1,5 +1,6 @@
 package application;
 
+import javafx.scene.text.Font;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,9 +61,9 @@ public class UserInterface extends Application {
     Button loadButton = new Button("Load Question"); // button for "load question" screen
     Button saveButton = new Button("Save"); // button for "save" screen
     // set preferred size
-    addButton.setPrefSize(100, 60);
-    loadButton.setPrefSize(100, 60);
-    saveButton.setPrefSize(100, 60);
+    addButton.setPrefSize(150, 60);
+    loadButton.setPrefSize(150, 60);
+    saveButton.setPrefSize(150, 60);
     // add buttons to hbox
     hbox.getChildren().addAll(addButton, loadButton, saveButton);
     hbox.setAlignment(Pos.CENTER);
@@ -164,13 +165,17 @@ public class UserInterface extends Application {
   public void setupScreens(String name) {
     VBox vbox;
     HBox hbox;
+    Text text;
     Insets insets = new Insets(10);
     switch (name) {
       case "add":
         vbox = new VBox();
         TextField textField;
         // Set the text at the top
-        screenMap.get(name).setTop(new Text("Add new question"));
+        text = new Text("Add new question");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        screenMap.get(name).setTop(text);
+        
         // initialize a HBox for text of the question
         // and add to the vbox
         hbox = new HBox();
@@ -252,7 +257,9 @@ public class UserInterface extends Application {
       case "load1":
         vbox = new VBox();
         BorderPane currScreen = screenMap.get(name);
-        currScreen.setTop(new Text("Load Question"));
+        text = new Text("Load question");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        currScreen.setTop(text);
         
         ObservableList<String> topics = 
             FXCollections.observableArrayList(
@@ -305,7 +312,9 @@ public class UserInterface extends Application {
       case "load2":
         vbox = new VBox();
         BorderPane currentScreen = screenMap.get(name);
-        currentScreen.setTop(new Text("Quiz"));
+        text = new Text("Quiz");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        currentScreen.setTop(text);
         hbox = new HBox();
         vbox.getChildren().add(new Text("Question: "));
 //        hbox.getChildren().addAll(new Text("Question Text: "), questionLabel);
@@ -365,7 +374,9 @@ public class UserInterface extends Application {
         break;
       case "next":
         //TODO goes to final result only if run out of questions.
-        screenMap.get(name).setTop(new Text("Result"));
+        text = new Text("Result");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        screenMap.get(name).setTop(text);
         hbox = new HBox();
         hbox.getChildren().addAll(new Text("Score:  "), new Text("Will display score"));
         screenMap.get(name).setCenter(hbox);
@@ -411,7 +422,9 @@ public class UserInterface extends Application {
         TextField fileName = new TextField();
         fileName.setPromptText("Enter a valid file name");
         vbox.getChildren().addAll(new Text("Filename:"), fileName);
-        screenMap.get(name).setTop(new Text("Save"));
+        text = new Text("Save");
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        screenMap.get(name).setTop(text);
         screenMap.get(name).setCenter(vbox);
         screenMap.get(name).setBottom(this.addButtonForSaveScreen());
         break;
@@ -446,8 +459,11 @@ public class UserInterface extends Application {
       main = new Scene(root, 600, 600);
 
       Text title = new Text("Quiz Generator");
-      title.setFont(Font.font("Courier", 26));
+      //title.setFont(Font.font("Courier", 26));
+      title.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
       root.setTop(title);
+      Insets inset = new Insets(30);
+      root.setMargin(root.getTop(), inset);
       root.setAlignment(title, Pos.CENTER);
       root.setCenter(this.addButtonForRootScreen());
 
