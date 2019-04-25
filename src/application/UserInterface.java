@@ -167,6 +167,7 @@ public class UserInterface extends Application {
     HBox hbox;
     Text text;
     Insets insets = new Insets(10);
+    TextField fileName;
     switch (name) {
       case "add":
         vbox = new VBox();
@@ -278,6 +279,13 @@ public class UserInterface extends Application {
         
         vbox.getChildren().add(hbox);
         vbox.getChildren().add(numberQuestionHBox);
+        hbox = new HBox();
+        fileName = new TextField();
+        fileName.setPromptText("Enter the file name");
+        hbox.getChildren().addAll(new Text("Question file: "), fileName);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().add(hbox);
+        
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.CENTER);
         currScreen.setCenter(vbox);
@@ -292,7 +300,7 @@ public class UserInterface extends Application {
           }
         });
         
-        Button loadButton = new Button("Load");
+        Button loadButton = new Button("Start");
         loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
@@ -419,7 +427,7 @@ public class UserInterface extends Application {
         break;
       case "save":
         vbox = new VBox();
-        TextField fileName = new TextField();
+        fileName = new TextField();
         fileName.setPromptText("Enter a valid file name");
         vbox.getChildren().addAll(new Text("Filename:"), fileName);
         text = new Text("Save");
