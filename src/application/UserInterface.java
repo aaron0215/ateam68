@@ -473,8 +473,10 @@ public class UserInterface extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     try {
+      primaryStage.setTitle("Quiz Generator");
       root = new BorderPane();
       main = new Scene(root, 600, 600);
+      
 
       Text title = new Text("Quiz Generator");
       //title.setFont(Font.font("Courier", 26));
