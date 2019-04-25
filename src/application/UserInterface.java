@@ -130,6 +130,26 @@ public class UserInterface extends Application {
       this.addScreen(name);
     }
   }
+  
+  public void readAddedQuestion() {
+    //TODO read information after adding question
+  }
+  
+  public void readSaveFile() {
+    //TODO  Save current questions to a file
+  }
+  
+  public void readLoadFunction() {
+    //TODO read topic and number of questions from load1 screen
+  }
+  
+  public void generateQuiz() {
+    //TODO generate quizs based on user's choice
+  }
+  
+  public void showResult() {
+    //TODO show score. Will be called once user submits or running out of questions
+  }
 
   public void setupScreens(String name) {
     VBox vbox;
