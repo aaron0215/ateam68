@@ -1,3 +1,13 @@
+/**
+ * Filename:   UserInterface.java
+ * Project:    Quiz Generator
+ * Authors:    Aaron Zhang, Aurora Shen, Tyler Gu, Yixing Tu
+ * Group:      A-Team 68
+ * 
+ * UserInterface class is the main GUI class for this project.
+ * 
+ */
+
 package application;
 
 import javafx.scene.text.Font;

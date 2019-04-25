@@ -1,3 +1,13 @@
+/**
+ * Filename:   Question.java
+ * Project:    Quiz Generator
+ * Authors:    Aaron Zhang, Aurora Shen, Tyler Gu, Yixing Tu
+ * Group:      A-Team 68
+ * 
+ * Question class presents a single question object.
+ * 
+ */
+
 package application;
 
 public class Question {

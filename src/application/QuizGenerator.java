@@ -1,3 +1,15 @@
+/**
+ * Filename:   QuizGenerator.java
+ * Project:    Quiz Generator
+ * Authors:    Aaron Zhang, Aurora Shen, Tyler Gu, Yixing Tu
+ * Group:      A-Team 68
+ * 
+ * QuizGenerator class is the main driver class to generate a quiz
+ * with given number of questions and topic. It reads questions from
+ * JSON file and can add new question to JSON file as well.
+ * 
+ */
+
 package application;
 
 import java.io.FileNotFoundException;
@@ -71,6 +83,7 @@ public class QuizGenerator {
         break;
       }
     }
+    //TODO: only randomly select given amount of questions to quiz object
     quiz = new Quiz(quizQuestions);
   }
 

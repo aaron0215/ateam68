@@ -1,3 +1,13 @@
+/**
+ * Filename:   Quiz.java
+ * Project:    Quiz Generator
+ * Authors:    Aaron Zhang, Aurora Shen, Tyler Gu, Yixing Tu
+ * Group:      A-Team 68
+ * 
+ * Quiz class represents a created quiz. It stores selected questions.
+ * 
+ */
+
 package application;
 
 import java.util.ArrayList;
