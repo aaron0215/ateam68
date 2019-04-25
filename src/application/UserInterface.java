@@ -28,6 +28,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -210,16 +212,142 @@ public class UserInterface extends Application {
         hbox = new HBox();  // hbox for topic prompt
         hbox.getChildren().addAll(new Text("Topic: "), topicComboBox);
         HBox numberQuestionHBox = new HBox();  //hbox for number of question prompt
-        hbox.getChildren().addAll(new Text("# of Questions: "), new TextField());
+        numberQuestionHBox.getChildren().addAll(new Text("# of Questions: "), new TextField());
         
         
         vbox.getChildren().add(hbox);
         vbox.getChildren().add(numberQuestionHBox);
+        vbox.setAlignment(Pos.CENTER);
         currScreen.setCenter(vbox);
+        
+        HBox buttons = new HBox();
+        
+        Button backButton = new Button("Cancel");
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            main.setRoot(root);
+          }
+        });
+        
+        Button loadButton = new Button("Load");
+        loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+              setupScreens("load2");
+//              main.setRoot(value);
+              activate("load2");
+              System.out.println("Test");
+            }
+          });
+
+        buttons.getChildren().addAll(backButton, loadButton);
+        buttons.setAlignment(Pos.CENTER_RIGHT);
+        currScreen.setBottom(buttons);
+        currScreen.setAlignment(buttons, Pos.CENTER_RIGHT);
+        
         break;
       case "load2":
+        vbox = new VBox();
+        BorderPane currentScreen = screenMap.get(name);
+        currentScreen.setTop(new Text("Quiz"));
+        //the question label display
+        hbox = new HBox();
+//        Label questionLabel = new Label();
+        vbox.getChildren().add(new Text("Question Text: "));
+//        hbox.getChildren().addAll(new Text("Question Text: "), questionLabel);
+        //currentScreen.setCenter(questionLabel);
+        //the question image display
+        //Image questionImage = new Image("question.jpg");
+        ImageView myimage = new ImageView();
+        myimage.setFitHeight(200);
+        myimage.setFitWidth(400);
+        vbox.getChildren().add(myimage);
+        //currentScreen.setCenter(myimage);
+        //the choice display
+        ToggleGroup answergroup = new ToggleGroup();
+        RadioButton answerbutton = new RadioButton();
+        answerbutton.setToggleGroup(answergroup);
+        answerbutton.setSelected(true);
+        hbox = new HBox();
+        hbox.getChildren().addAll(answerbutton, new TextField());
+        vbox.getChildren().add(hbox);
+        hbox.setAlignment(Pos.CENTER);
+        for (int i = 0; i < 4; i++) {
+          hbox = new HBox();
+          button = new RadioButton();
+          button.setToggleGroup(answergroup);
+          hbox.getChildren().addAll(button, new TextField());
+          vbox.getChildren().add(hbox);
+          hbox.setAlignment(Pos.CENTER);
+        }
+        
+        currentScreen.setCenter(vbox);
+        
+        hbox = new HBox();
+        //the submit button
+        Button submit = new Button("Submit");
+        Button next = new Button("Next");
+        hbox.getChildren().addAll(submit, next);
+        hbox.setAlignment(Pos.CENTER_RIGHT);
+        currentScreen.setBottom(hbox);
+        
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            setupScreens("next");
+            activate("next");
+          }
+        });
+        
+        next.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            setupScreens("next");
+            activate("next");
+          }
+        });
+        
+        //the next button
+        //set the answer box
+//        hbox = new HBox();
+//        hbox.getChildren().addAll(new Text("Your answer is:"), hbox);
+
         break;
       case "next":
+        //TODO goes to final result only if run out of questions.
+        screenMap.get(name).setTop(new Text("Result"));
+        hbox = new HBox();
+        hbox.getChildren().addAll(new Text("Score:  "), new Text("Will display score"));
+        screenMap.get(name).setCenter(hbox);
+        screenMap.get(name).setAlignment(hbox, Pos.CENTER);
+        screenMap.get(name).setMargin(screenMap.get(name).getTop(), insets);
+        screenMap.get(name).setMargin(hbox, insets);
+        
+        HBox resultChoice = new HBox();
+        Button changeSetting = new Button("Change setting");
+        Button tryAgain = new Button("Try Again");
+        resultChoice.getChildren().addAll(changeSetting, tryAgain);
+        
+        changeSetting.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            setupScreens("load1");
+            activate("load1");
+          }
+        });
+        
+        tryAgain.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent me) {
+            setupScreens("load2");
+            activate("load2");
+          }
+        });
+        
+        resultChoice.setAlignment(Pos.CENTER_RIGHT);
+        screenMap.get(name).setBottom(resultChoice);
+        
         break;
       case "save":
         vbox = new VBox();
@@ -233,18 +361,6 @@ public class UserInterface extends Application {
         screenMap.get(name).setMargin(screenMap.get(name).getBottom(), insets);
         break;
     }
-  }
-
-  public TextField addQuestion() {
-    return null;
-  }
-
-  public CheckBox addCheckBox() {
-    return null;
-  }
-
-  public ComboBox addComboBox() {
-    return null;
   }
 
   public void addScreen(String name) {
