@@ -1,16 +1,18 @@
 package application;
 
+import java.util.ArrayList;
+
 public class Quiz {
   
-  Question[] quizQuestion;
-  double score = quizQuestion.length;
+  ArrayList<Question> quizQuestion;
+  double score = quizQuestion.size();
 
-  Quiz (Question[] questions){
+  Quiz (ArrayList<Question> questions){
     this.quizQuestion = questions;
-    this.score = questions.length;
+    this.score = questions.size();
   }
   
-  public Question[] getQuizQuestion() {
+  public ArrayList<Question> getQuizQuestion() {
     return quizQuestion;
   }
   
@@ -21,7 +23,7 @@ public class Quiz {
   
   // Convert score to percentage and return
   public double getScore() {
-    return (score/quizQuestion.length)*100;
+    return (score/quizQuestion.size())*100;
   }
   
 }
