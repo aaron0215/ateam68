@@ -2,6 +2,7 @@ package application;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,8 +74,41 @@ public class QuizGenerator {
     quiz = new Quiz(quizQuestions);
   }
 
-  public void save(String filePath) {
-
+  /**
+   * convert current quiz bank to a json file
+   * and save it to a specific filePath
+   * @param filePath
+   */
+  public void save(String filePath) throws IOException{
+    JSONObject quiz = new JSONObject();  // the entire quiz JSONObject
+    JSONArray questionArray = new JSONArray();
+    
+    // generate each question to JSONObject and add to question array
+    for (Question question: questionBank) {
+      JSONObject jsonQuestion = new JSONObject();
+      jsonQuestion.put("questionText", question.getQuestion());
+      jsonQuestion.put("topic", question.getTopic());
+      jsonQuestion.put("image", question.getImage());
+      JSONArray choiceArray = new JSONArray();
+      
+      // create choice array for this question
+      for (String choice: question.getChoices()) {
+        JSONObject choiceComb = new JSONObject();
+        if (choice.equals(question.getCorrect())) {
+          choiceComb.put("isCorrect", "T");
+        }
+        else {
+          choiceComb.put("isCorrect", "F");
+        }
+        choiceComb.put("choice", choice);
+      }
+      jsonQuestion.put("choiceArray", choiceArray);
+      questionArray.add(jsonQuestion);  // add this question to JSONArray
+    }
+    
+    quiz.put("questionArray", questionArray);  //add question array to the quiz object
+    FileWriter outFile = new FileWriter(filePath);  // open file write according to the parameter
+    outFile.write(quiz.toJSONString());
   }
 
   public void addNewQuestion(Question newQuestion) {
